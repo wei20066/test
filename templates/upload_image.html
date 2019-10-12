@@ -1,0 +1,82 @@
+<html>
+<head>
+	{% load bootstrap3 %}
+	{% bootstrap_css %}
+	{% bootstrap_javascript %}
+<title>
+upload file
+</title>
+</head>
+<body>
+<div class="row" style="margin-top: 50px;">
+    <form class="form-inline" id="excelForm" action="/upload/" method="post" enctype="multipart/form-data">
+	<div class="form-group" style="margin-left: 30px">
+	<label for="fileupload">浏览:</label>
+	<input id="fileupload" type="file" name="fileupload" accept=".xls,.xlsx" multiple="" style="display:none;" />
+	<input type='text' class="form-control" name='textfield' id='textfield' autocomplete="off" readonly="readonly" />
+	<input id="excelImport" type="button" value="浏览" class="btn btn-primary" />
+	</div>
+	<div class="form-group" style="margin-left: 20px">
+	<label for="input_second">用户名：</label>
+	<input type="text" class="form-control" name="name" id="name" placeholder="" autocomplete="off">
+	</div>        
+	<div class="form-group" style="margin-left: 20px">
+	<label for="input_third">密码：</label>
+	<input type="text" class="form-control" name="secret" id="secret" placeholder="" autocomplete="off">
+	</div>        
+	<button type="button" id="uploadSubmit" class="btn btn-danger" style="color: #FFFFFF;background-color: #10B47D;font-size:15px; padding: 0px 16px 0px !important;height:30px;">提交</button>
+	</form>
+</div>
+<style>
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fileinput-button input{
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+        }
+    </style>
+</head>
+<body style="padding: 10px">
+    <div align="center">
+        <span class="btn btn-success fileinput-button">
+            <span>上传</span>
+            <input type="file">
+        </span>
+    </div>
+
+	<script>    
+	$(document).ready(function()
+	{
+		$("#excelImport").click(function()
+		{
+			$('#fileupload').click();
+			});
+	$("#uploadSubmit").click(function() {
+	$('#excelForm').submit();        
+	});
+	$('#fileupload').change(function(){
+	document.getElementById("textfield").value =
+	document.getElementById("fileupload").files[0].name;
+	})   
+	});
+	</script>
+<!--
+ <form action="/upload/" method="post" enctype="multipart/form-data" >
+     {% csrf_token %}
+     上传：
+	 <input type="file" name="picture">
+	 {{pcf.as_p}}
+     <input type="submit" value="上传">
+	 -->
+	
+ </form>
+ </body>
+</html>

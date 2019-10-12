@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block mainbody %}
+		<div class="page-header" style="padding-top: 80px;">
+			<div id="navbar" class="navbar-collapse collapse"> 
+				<form class="navbar-form" method="get" action="/search_guest_name/">
+					<div class="form-group">
+						<input name="name" type="text" placeholder="名称" class="form-control">
+					</div> 
+					<button type="submit" class="btn btn-success">搜索</button> 
+				</form>
+			</div>
+		</div>
+		<!-- 嘉宾列表 --> 
+		<div class="row" style="padding-top: 80px;">
+			<div class="col-md-2">
+			</div>
+				<div class="col-md-8">	
+					<table class="table table-striped"> 
+						<thead> 
+							<tr> 
+								<th>id</th>
+								<th>名称</th>
+								<th>手机</th>
+								<th>Email</th>
+								<th>签到</th>
+								<th>发布会</th>
+							</tr> 
+						</thead>
+						<tbody> {% for guest in guests %} 
+						<tr>
+							<td>{{ guest.id }}</td>
+							<td>{{ guest.realname }}</td>
+							<td>{{ guest.phone }}</td>
+							<td>{{ guest.email }}</td>
+							<td>{{ guest.sign }}</td>
+							<td>{{ guest.event }}</td>
+						</tr> 
+						{% endfor %} 
+						</tbody> 
+					</table> 
+			
+		
+		<!-- 列表分页器 -->
+		<nav aria-label="Page navigation">
+			<ul class="pagination">
+				<li>
+					{% if guests.has_previous %} 
+					<a href="?page={{ guests.previous_page_number }}" aria-label="Previous">
+						{% endif %} 
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li>
+					<a>{{ guests.number }} / {{ guests.paginator.num_pages }}</a>
+				</li> 
+				<li>
+					{% if guests.has_next %} 
+					<a href="?page={{ guests.next_page_number }}" aria-label="Next">
+					{% endif %}
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		</div>
+		<div class="col-md-2">
+		</div>
+   {% endblock %}
