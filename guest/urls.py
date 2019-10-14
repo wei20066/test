@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from sign import views
 from django.conf.urls import url, include 
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,6 +28,7 @@ urlpatterns = [
     url(r'^accounts/login/$', views.index), 
     url(r'^upload_image/$',views.get_upload),
     url(r'^upload/$',views.upload),
+    url(r'^show_pic/$',views.show_pic),
     url(r'^search_event_name/$', views.search_event_name),
     url(r'^search_guest_name/$', views.search_guest_name),
     url(r'^guest_manage/$', views.guest_manage),
@@ -35,4 +38,4 @@ urlpatterns = [
     url(r'^api/', include('api.urls', namespace="api")),
     url(r't1plus/',include('api.urls', namespace="t1")),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #如果单纯的是上传，文件并不用来显示或者读取，就不用加这个
