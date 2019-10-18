@@ -1,0 +1,146 @@
+wxpython是python对跨平台GUI库wxWidgets的封装。wxWidgets是由C++写成的。
+
+　　wxpython被包装进了wx模块中，用它设计GUI很方便，但是必须要做的就是先建立一个应用的对象：
+
+app = wx.App()
+#与这个app相关的一些控件、框架等的操作,一定要在MainLoop调用前处理完
+app.MainLoop()
+　　为了书写方便，下面所有代码和文本中都默认了是from wx import *了，这样不用每个类前面再加上wx.了。。。
+
+　　*听说是由于沿用了C++的习惯，所有wx中的方法和函数都是每个单词的首字母大写
+
+　　■　　一些wx的类方法
+
+　　　　wx.DisplaySize()　　返回的是屏幕大小，如在窗口创建时指定size是这个的话创建出来的窗口就是最大化的
+
+　　■　　窗口组件
+
+　　●　　窗口（Frame）类
+
+　　所有控件都应该放到一个窗口里去展现，这个窗口类就是Frame类。他可以创建一个窗口并且右上角自带最小化、最大化和关闭三个键。
+
+　　其构造方法是 Frame(self, Window parent, int id=-1, String title=EmptyStrin,Point pos=DefaultPosition, Size size=DefaultSize,long style=DEFAULT_FRAME_STYLE, String name=FrameNameStr)z
+
+　　各个参数的意思是：
+
+　　　　parent　　一个父对象，窗口的父对象只能是窗口。父对象的意思是当前对象和其关联起来，当父对象被关闭或者删除的话，当前对象也跟着一起不见了
+
+、　　  id　　指定一个id来在真个wx中标识当前对象。一般来说不用特别指定，可以写默认值-1，意思是让python自动分配一个id给他就好了。当事件发生时，python会根据这个id号来定位发生事件的元素
+
+　　　  //以上两个参数在所有控件类的构造方法里都有，且意思也都一样。要记住喔
+
+　　　  title　　传个字符串，让窗口上面显示这个title
+
+　　　　pos　　传个元组，表示窗口被创建时出现在屏幕上的位置的坐标。左上角为原点
+
+　　　　size　　元组，表示窗口被创建时大小，可以
+
+　　　　style　　窗口的一些界面风格
+
+　　　　name　　给这个窗口起一个wx内部的名字，可以引用
+
+　　Frame类有一些类方法：
+
+　　　　Show()　　显示窗口
+
+　　　　Hide()　　隐藏窗口　　//这两个基本所有控件都有
+
+　　　　Iconize()　　最小化窗口
+
+　　　　Close()　　关闭窗口
+
+　　　　SetMinSize(tuple)　　设置窗口可调节的最小大小
+
+　　　　SetMaxSize(tuple)　　设置窗口可调节的最大大小
+
+　　　　Center()　　自动将窗口居屏幕正中显示，这样就可以不用设置构造方法里的pos属性了
+
+　　一般而言，不会直接调用Frame类来做文章，常见的最佳实践是把需要的控件，事件处理方法等等封装进一个自己定义的Frame类的子类。那么这样一个子类其实抽象的就是一个个性化的窗口，比如：
+
+复制代码
+class MyFrame(Frame):
+
+    def __init__(self):
+        Frame.__init__(self,None,-1,title="test",pos=(100,100),size=(200,200))
+        '''
+        布局上的一些个性化添加和操作
+        '''    
+    
+    def someEventHandler(self,event):
+        '''
+        定义一些事件处理函数用于给控件Bind
+        '''
+        pass
+
+if __name__ == "__main__":
+    app = App()    #创建应用的对象
+    myframe = MyFrame()    #创建一个自定义出来的窗口
+    myframe.Show()    #这两句一定要在MainLoop开始之前就执行    
+    app.MainLoop()
+复制代码
+ 　　■　　面板组件 Panel
+
+　　通常Panel是添加在Frame类上, panel = Panel(Frame,-1)
+
+　　可以运用Panel来盛放其他组件，以实现对组件的分组管理。更加方便
+
+　　在panel上，可以用SetBackgroundColour(...)来设置改变背景色，SetForegroundColour(...)设置前景颜色。
+
+　　需要注意的一点是，Panel是有Size的。与窗口关联的Panel，其大小默认为窗口的大小且具有EXPAND属性，根据窗口大小改变而调整自身大小。而其他的Panel的默认大小是构造方法中的参数指定 or 由最后加进来多少组件决定。所以仅仅把某个没和窗口关联的Panel中的某个组件设置成EXPAND，而Panel本身不设置成EXPAND的话是没有用的，因为窗口大小变化时，Panel本身大小不变。
+
+ 
+
+　　■　　静态文本 StaticText
+
+　　构造方法：StaticText(parent,id,label,size,pos,style)
+
+　　label就是要写的字，可以用SetLabelText(...)设置文字，GetLabelText()来获取文字。SetForegroundColour(...)来设置字的颜色，SetBackgroundColour(...)设置背景的颜色。
+
+　　style可以设置如wx.ALIGN_CENTER这种，来让文字居中对齐等等
+
+ 
+
+　　■　　输入框 TextCtrl
+
+　　TextCtrl的构造方法和StaticText类似，其style可以选
+
+　　TE_READONLY　　设置输入框只读，不可编辑
+
+　　TE_PASSWORD　　输入框中的输入不显示明文而显示黑点
+
+　　TE_MULTILINE　　设置为多行文本输入框
+
+　　TextCtrl有如下类方法供调用：
+
+　　　　AppendText(...)，WriteText(...)　　向输入框末尾加上一些文本/向输入框开头加上一些文本
+
+　　　　Clear()　　清空文本框
+
+　　　　GetValue()，SetValue(...)　　获取/设置文本值
+
+　　　　GetRange(from,to)　　返回两位置中间的部分的字符串（参数是正整数，指第N个字符。开头首个字符算0，算头不算尾。比如HelloWorld.GetRange(2,4) == "ll"）
+
+　　　　Remove(from,to)　　删除两个位置中间的部分的字符串
+
+　　　　SetInsertionPoint(...),GetInsertionPoint()　　将光标设置到第N个字符前面（首个字符算0的话）/获得当前光标所在位置
+
+　　
+
+　　■　　按钮　　Button
+
+　　构造方法也是类似的，label参数指定了在按钮上显示的文本
+
+　　类方法有：
+
+　　　　SetLabel(...),GetLabel()　　设置label，获取label
+
+　　　　SetDefault()　　把按钮设置为其所在窗口的默认按钮，即按下按钮之后和在这个窗口获得焦点时敲回车是一个效果
+
+　　●　图片按钮
+
+　　　　可以用wx.Image来创建一个图片对象，然后用一些方法把这张图整合到button中就可以做成一个图片按钮：
+
+pic = wx.Image("some_pic_path.png",wx.BITMAP_TYPE_BMP)    #建立一个图片对象，图片最好是.png格式的。
+pic.ConvertToBitMap()    #将图片格式转换
+btn = wx.BitmapButton(panel,-1,pic)    #建立图片按钮
+ 

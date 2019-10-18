@@ -1,0 +1,1311 @@
+[Python] wxPython 基本控件 (转)
+转自：http://www.cnblogs.com/wangjian8888/p/6028777.html
+
+一、静态文本控件
+
+wx.StaticText(parent, id, label, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=0, name="staticText")
+
+wx.StaticText构造函数的参数
+
+parent：父窗口部件。
+
+id：标识符。使用-1可以自动创建一个唯一的标识。
+
+label：你想显示在静态控件中的文本。
+
+pos：一个wx.Point或一个Python元组，它是窗口部件的位置。
+
+size：一个wx.Size或一个Python元组，它是窗口部件的尺寸。
+
+style：样式标记。
+
+name：对象的名字，用于查找的需要。
+
+其中样式
+wx.ALIGN_CENTER：静态文本位于静态文本控件的中心。
+
+wx.ALIGN_LEFT：文本在窗口部件中左对齐。这是默认的样式。
+
+wx.ALIGN_RIGHT：文本在窗口部件中右对齐。
+
+wx.ST_NO_AUTORESIZE：如果使用了这个样式，那么在使用了SetLabel()改变文本之后，静态
+
+文本控件不将自我调整尺寸。你应结合使用一个居中或右对齐的控件来保持对齐。
+
+
+二、文本输入控件
+wx.TextCtrl的样式
+
+wx.TE_CENTER：控件中的文本居中。
+
+wx.TE_LEFT：控件中的文本左对齐。默认行为。
+
+wx.TE_NOHIDESEL：文本始终高亮显示，只适用于Windows。
+
+wx.TE_PASSWORD：不显示所键入的文本，代替以星号显示。
+
+wx.TE_PROCESS_ENTER：如果使用了这个样式，那么当用户在控件内按下回车键时，一个文本
+
+输入事件被触发。否则，按键事件内在的由该文本控件或该对话框管理。
+
+wx.TE_PROCESS_TAB：如果指定了这个样式，那么通常的字符事件在Tab键按下时创建（一般意
+
+味一个制表符将被插入文本）。否则，tab由对话框来管理，通常是控件间的切换。
+
+wx.TE_READONLY：文本控件为只读，用户不能修改其中的文本。
+
+wx.TE_RIGHT：控件中的文本右对齐。
+
+对于添加文本和移动插入点，该文本控件自动管理用户的按键和鼠标事件。对于该文本控件可
+
+用的命令控制组合说明如下：
+
+<ctrl-x>：剪切
+<ctrl-c>：复制
+<ctrl-v>：粘贴
+<ctrl-z>：撤消
+
+AppendText(text)：在尾部添加文本。
+
+Clear()：重置控件中的文本为“”。并且生成一个文本更新事件。
+
+EmulateKeyPress(event)：产生一个按键事件，插入与事件相关联的控制符，就如同实际的按
+
+键发生了。
+
+GetInsertionPoint()
+SetInsertionPoint(pos)
+SetInsertionPointEnd()：得到或设置插入点的位置，位置是整型的索引值。控件的开始位置
+
+是0。
+
+GetRange(from, to)：返回控件中位置索引范围内的字符串。
+
+GetSelection()
+GetStringSelection()
+SetSelection(from, to)：GetSelection()以元组的形式返回当前所选择的文本的起始位置的
+
+索引值（开始，结束）。GetStringSelection()得到所选择的字符串。SetSelection(from,
+
+to)设置选择的文本。
+
+GetValue()
+SetValue(value)：SetValue()改变控件中的全部文本。GetValue()返回控件中所有的字符串
+
+。
+
+Remove(from, to)：删除指定范围的文本。
+
+Replace(from, to, value)：用给定的值替换掉指定范围内的文本。这可以改变文本的长度。
+
+WriteText(text)：类似于AppendText()，只是写入的文本被放置在当前的插入点。
+
+ 
+
+
+三、多行文本控件 wx.TE_MULTILINE
+
+wx.HSCROLL：如果文本控件是多行的，并且如果该样式被声明了，那么长的行将不会自动换行，并显示水平滚动条。该选项在GTK+中被忽略。
+
+wx.TE_AUTO_URL：如果丰富文本选项被设置并且平台支持的话，那么当用户的鼠标位于文本中的一个URL上或在该URL上敲击时，这个样式将导致一个事件被生成。
+
+wx.TE_DONTWRAP：wx.HSCROLL的别名。
+
+wx.TE_LINEWRAP：对于太长的行，以字符为界换行。某些操作系统可能会忽略该样式。
+
+wx.TE_MULTILINE：文本控件将显示多行。
+
+wx.TE_RICH：用于Windows下，丰富文本控件用作基本的窗口部件。这允许样式文本的使用。
+
+wx.TE_RICH2：用于Windows下，把最新版本的丰富文本控件用作基本的窗口部件。
+
+wx.TE_WORDWRAP：对于太长的行，以单词为界换行。许多操作系统会忽略该样式。
+
+四、创建字体
+wx.Font(pointSize, family, style, weight, underline=False,
+faceName="", encoding=wx.FONTENCODING_DEFAULT)
+
+wx.DECORATIVE：一个正式的，老的英文样式字体。
+
+wx.DEFAULT：系统默认字体。
+
+wx.MODERN：一个单间隔（固定字符间距）字体。
+
+wx.ROMAN：serif字体，通常类似于Times New Roman。
+
+wx.SCRIPT：手写体或草写体
+
+wx.SWISS：sans-serif字体，通常类似于Helvetica或Arial。
+
+style参数指明字体的是否倾斜，它的值有：wx.NORMAL, wx.SLANT, 和 wx.ITALIC。同样，weight参数指明字体的醒目程度，可选值有：wx.NORMAL, wx.LIGHT,或wx.BOLD。这些常量值的行为根据它的名字就可以知道了。underline参数仅工作在Windows系统下，如果取值为True，则加下划线，False为无下划线。
+faceName参数指定字体名。
+
+encoding参数允许你在几个编码中选择一个，它映射内部的字符和字本显示字符。编码不是Unicode编码，只是用于wxPython的不同的8位编码。大多数情况你可以使用默认编码。
+
+
+五、响应文本事件
+frame.Bind(wx.EVT_TEXT, frame.OnText, text)
+EVT_TEXT：当控件中的文本改变时产生该事件。文本因用户的输入或在程序中使用SetValue()而被改变，都要产生该事件。
+
+EVT_TEXT_ENTER：当用户在一个wx.TE_PROCESS_ENTER样式的文本控件中按下了回车键时，产生该事件。
+
+EVT_TEXT_URL：如果在Windows系统上，wx.TE_RICH或wx.TE_RICH2样式被设置了，并且wx.TE_AUTO_URL样式也被设置了，那么当在文本控件内的URL上发生了一个鼠标事件时，该事件被触发。
+
+EVT_TEXT_MAXLEN：如果使用SetMaxLength()指定了该控件的最大长度，那么当用户试图输入更长的字符串时，该事件被触发。你可能会用这个，例如，这时给用户显示一个警告消息。
+
+
+六、使用按钮
+1.文本按钮 
+wx.Button(parent, id, label, pos, size=wxDefaultSize, style=0,
+    validator, name="button")
+
+2.位图按钮
+wx.BitmapButton(panel, -1, bmp, pos=(10, 20))
+
+3.开关按钮（toggle button）
+wx.ToggleButton(panel, -1,u"开关", pos=(10, 150))
+当你按下一个开关按钮（toggle button）时，它将一直保持被按下的状态直到你再次敲击它。
+
+在wx.ToggleButton与父类wx.Button之间只有丙个区别：
+
+a、当被敲击时，wx.ToggleButton发送一个EVT_TOGGLEBUTTON事件。
+b、wx.ToggleButton有GetValue()和SetValue()方法，它们处理按钮的二进制状态。
+
+4.通用按钮
+
+有几个使用通用按钮的原因：
+
+a、通用按钮比本地按钮具有更好的跨平台的外观。另一方面，通用按钮可能在具体的系统上看起来与本地按钮有些微的不同。
+
+b、使用通用按钮，你对它的外观有更多的控制权，并且能改变属性，如3D斜面的宽度和颜色，而这对于本地控件可能是不允许的。
+
+c、通用按钮类允许特性的合并，而wxWidget按钮不行。比如GenBitmapTextButton允许文本标签和位图的组合，GenBitmapToggleButton实现一个位图切换按钮。
+
+d、如果你正在创建一个按钮类，使用通用按钮是较容易的。由于其代码和参数是用Python写的，所以当创建一个新的子类的时候，对于检查和覆盖，它们的可用性更好。
+
+ 
+
+滑块（slider）
+
+滑块是一个窗口部件，它允许用户通过在该控件的尺度内拖动指示器来选择一个数值。在wxPython中，该控件类是wx.Slider，它包括
+
+了滑块的当前值的只读文本的显示。
+wx.Slider(parent, id, value, minValue, maxValue,
+    pos=wxDefaultPosition, size=wx.DefaultSize,
+    style=wx.SL_HORIZONTAL, validator=wx.DefaultValidator,
+    name="slider")
+wx.Slider的样式
+
+wx.SL_AUTOTICKS：如果设置这个样式，则滑块将显示刻度。刻度间的间隔通过SetTickFreq方法来控制。
+
+wx.SL_HORIZONTAL：水平滑块。这是默认值。
+
+wx.SL_LABELS：如果设置这个样式，那么滑块将显示两头的值和滑块的当前只读值。有些平台可能不会显示当前值。
+
+wx.SL_LEFT：用于垂直滑块，刻度位于滑块的左边。
+
+wx.SL_RIGHT：用于垂直滑块，刻度位于滑块的右边。
+
+wx.SL_TOP：用于水平滑块，刻度位于滑块的上部。
+
+wx.SL_VERTICAL：垂直滑块。
+
+ 
+
+GetRange()
+SetRange(minValue, maxValue)：设置滑块的两端值。
+
+GetTickFreq()
+SetTickFreq(n, pos)：使用参数n设置刻度的间隔。参数pos没有被使用，但是它仍然是必要的，将它设置为1。
+
+GetLineSize()
+SetLineSize(lineSize)：设置你每按一下方向键，滑块所增加或减少的值。
+
+GetPageSize()
+SetPageSize(pageSize)：设置你每按一下PgUp或PgDn键，滑块所增加或减少的值。
+
+GetValue()
+SetValue(value)：设置滑块的值。
+
+ 
+
+微调控制器
+wx.SpinCtrl
+
+wx.SpinCtrl(parent, id=-1, value=wx.EmptyString,
+    pos=wx.DefaultPosition, size=wx.DefaultSize,
+    style=wx.SP_ARROW_KEYS, min=0, max=100, initial=0,
+    name="wxSpinCtrl")
+
+ 
+
+ 
+
+
+进度条 wx.Gauge
+
+wx.Gauge(parent, id, range, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=wx.GA_HORIZONTAL,
+    validator=wx.DefaultValidator, name="gauge")
+
+
+复选框 wx.CheckBox
+wx.CheckBox(parent, id, label, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=0, name="checkBox")
+
+label参数是复选框的标签文本。复选框没有样式标记，但是它们产生属于自己的独一无二的命令事件：EVT_CHECKBOX。wx.CheckBox的开关状
+
+态可以使用GetValue()和SetValue(state)方法来访问,并且其值是一个布尔值。IsChecked()方法等同于GetValue()方法，只是为了让代码看起
+
+来更易明白。
+
+ 
+
+单选按钮（radio button）
+wx.RadioButton
+wx.RadioBox
+
+wx.RadioButton(parent, id, label, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=0,
+    validator=wx.DefaultValidator, name="radioButton")
+
+wx.RadioBox(parent, id, label, pos=wx.DefaultPosition,
+    size=wxDefaultSize, choices=None, majorDimension=0,
+    style=wx.RA_SPECIFY_COLS, validator=wx.DefaultValidator,
+    name="radioBox")
+
+wx.RadioBox的方法
+
+EnableItem(n, flag)：flag参数是一个布尔值，它用于使索引为n的按钮有效或无效。要使整个框立即有效，使用Enable()。
+
+FindString(string)：根据给定的标签返回相关按钮的整数索引值，如果标签没有发现则返回-1。
+
+GetCount()：返回框中按钮的数量。
+
+GetItemLabel(n)
+SetItemLabel(n, string)：返回或设置索引为n的按钮的字符串标签。
+
+GetSelection()
+GetStringSelection()
+SetSelection(n)
+SetStringSelection( string)：GetSelection() 和 SetSelection()方法处理当前所选择的单选按钮的整数索引。GetStringSelection()返回当前所选择的按钮的字符串标签，SetStringSelection()改变所选择的按钮的字符串标签为给定值。没有set*()产生EVT_RADIOBOX事件。
+
+ShowItem(item, show)：show参数是一个布尔值，用于显示或隐藏索引为item的按钮。
+
+ 
+
+
+列表框wx.ListBox
+
+wx.ListBox(parent, id, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, choices=None, style=0,
+    validator=wx.DefaultValidator, name="listBox")
+wx.LB_EXTENDED：用户可以通过使用shift并敲击鼠标来选择一定范围内的连续的选项，或使用等同功能的按键。
+
+wx.LB_MULTIPLE：用户可以一次选择多个选项（选项可以是不连续的）。实际上，在这种情况下，列表框的行为就像是一组复选框。
+
+wx.LB_SINGLE：用户一次只能选一个选项。实际上，在这种情况下，列表框的行为就像是一组单选按钮。
+
+
+列表框的滚动条类型样式
+
+wx.LB_ALWAYS_SB：列表框将始终显示一个垂直的滚动条，不管有没有必要。
+
+wx.LB_HSCROLL：如果本地控支持，那么列表框在选择项太多时，将创建一个水平滚动条。
+
+wx.LB_HSCROLL：列表框只在需要的时候显示一个垂直的滚动条。这是默认样式。
+
+还有一个样式wx.LB_SORT，它使得列表中的元素按字母顺序排序
+
+
+列表框的方法
+
+Append(item)：把字符串项目添加到列表框的尾部。
+
+Clear()：清空列表框。
+
+Delete(n)：删除列表框中索引为n的项目。
+
+Deselect(n)：在多重选择列表框中，导致位于位置n的选项取消选中。在其它样式中不起作用。
+
+FindString(string)：返回给定字符串的整数位置，如果没有发现则返回-1。
+
+GetCount()：返回列表中字符串的数量。
+
+GetSelection()
+SetSelection(n, select)
+GetStringSelection()
+SetStringSelection(string, select)
+GetSelections()：GetSelection()得到当前选择项的整数索引（仅对于单选列表）。对于多选列表，使用GetSelections()来返回包含所选项目的整数位置的元组。对于单选列表，GetStringSelection()返回当前选择的字符串。相应的set方法使用布尔值参数select设置指定字符串或索引选项的状态。使用这种方法改变选择不触发EVT_LISTBOX事件。
+
+GetString(n)
+SetString(n, string)：得到或设置位置n处的字符串。
+
+InsertItems(items, pos)：插入参数items中的字符串列表到该列表框中pos参数所指定的位置前。位置0表示把项目放在列表的开头。
+
+Selected(n)：返回对应于索引为n的项目的选择状态的布尔值。
+
+Set(choices)：重新使用choices的内容设置列表框。
+
+ 
+
+合并复选框和列表框 wx.CheckListBox
+
+下拉 wx.Choice
+wx.Choice(parent, id, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, choices=None, style=0,
+    validator=wx.DefaultValidator, name="choice")
+
+wx.Choice没有专门的样式，但是它有独特的命令事件：EVT_CHOICE。几乎表7.14中所有适用于单选列表框的方法都适用于wx.Choice对象。
+
+
+文本域与列表合并在一起 wx.ComboBox
+
+wx.ComboBox(parent, id, value="", pos=wx.DefaultPosition,
+    size=wx.DefaultSize, choices, style=0,
+    validator=wx.DefaultValidator, name="comboBox")
+
+常用控件总结
+1、对于静态文本标签的显示，你可以使用wx.StaticText类。还有一个完全用wxPython实现的版本，名为wx.lib.stattext.GenStaticText。
+
+2、如果你需要一个控件以让用户输入文本，那么使用类wx.TextCtrl。它允许单行和多行的输入，还有密码掩饰和其它的功用。如果本地控支持它，你可以使用wx.TextCtrl来得到样式文本。样式是wx.Text-Attr类的实例，wx.Font包含字体信息。对于所有的系统，你可以使用类wx.stc.StyledTextCtrl（它是wxPython对开源Scintilla文本组件的封装）在一个可编辑的文本组件中实现颜色和字体样式。
+
+3、创建按钮，使用wx.Button类，它也有一个通用版wx.lib.buttons.GenButton。按钮可以使用位图来代替一个文本标签（wx.BitmapButton），或在按下和未按下之间有一个开关状态。还有一个等价于位图和开关按钮的通用版，它比标准版有更全面的特性。
+
+4、有一些方法用于选择或显示数字值。你可以使用wx.Slider类来显示一个垂直或水平的滑块。wx.SpinCtrl显示一个可以使用上下按钮来改变数字值的文本控件。wx.Gauge控件显示一个进度条指示器。
+
+5、你可以从一系列的控件中选出让用户从列表选项作出选择的最佳控件，最佳控件所应考虑的条件是选项的数量，用户能否多选和你想使用的屏幕空间的总量。复选框使用wx.CheckBox类。这儿有两个方法去得到单选按钮：wx.RadioButton给出单个单选按钮，而wx.RadioBox给出显示在一起的一组按钮。这儿有几个列表显示控件，它们的用法相似。列表框的创建使用wx.ListBox，并且你可以使用wx.CheckListBox来增加复选框。对于更简洁的下拉式，使用wx.Choice. wx.ComboBox合并了列表和文本控件的特性。
+
+ 
+
+合并复选框和列表框 wx.CheckListBox
+
+下拉 wx.Choice
+wx.Choice(parent, id, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, choices=None, style=0,
+    validator=wx.DefaultValidator, name="choice")
+
+wx.Choice没有专门的样式，但是它有独特的命令事件：EVT_CHOICE。几乎表7.14中所有适用于单选列表框的方法都适用于wx.Choice对象。
+
+
+文本域与列表合并在一起 wx.ComboBox
+
+wx.ComboBox(parent, id, value="", pos=wx.DefaultPosition,
+    size=wx.DefaultSize, choices, style=0,
+    validator=wx.DefaultValidator, name="comboBox")
+
+ 
+
+框架 wx.Frame
+wx.Frame(parent, id=-1, title="", pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE,
+    name="frame")
+
+框架的形状和尺寸标记
+
+wx.FRAME_NO_TASKBAR：一个完全标准的框架，除了一件事：在Windows系统和别的支持这个特性的系统下，它不显示在任务栏中。当最小化时，该框架图标化到桌面而非任务栏。
+
+wx.FRAME_SHAPED：非矩形的框架。框架的确切形状使用SetShape()方法来设置。窗口的形状将在本章后面部分讨论。
+
+wx.FRAME_TOOL_WINDOW：该框架的标题栏比标准的小些，通常用于包含多种工具按钮的辅助框架。在Windows操作系统下，工具窗口将不显示在任务栏中。
+
+wx.ICONIZE：窗口初始时将被最小化显示。这个样式仅在Windows系统中起作用。
+
+wx.MAXIMIZE：窗口初始时将被最大化显示（全屏）。这个样式仅在Windows系统中起作用。
+
+wx.MINIMIZE：同wx.ICONIZE。
+
+
+窗口漂浮行为的样式
+
+wx.FRAME_FLOAT_ON_PARENT：框架将漂浮在其父窗口（仅其父窗口）的上面。（很明显，要使用这个样式，框架需要有一个父窗口）。其它的框架可以遮盖这个框架。
+
+wx.STAY_ON_TOP：该框架将始终在系统中其它框架的上面。（如果你有多个框架使用了这个样式，那么它们将相互重叠，但对于系统中其它的框架，它们仍在上面。）
+
+
+装饰窗口的样式
+
+wx.CAPTION：给窗口一个标题栏。如果你要放置最大化框、最小化框、系统菜单和上下文帮助，那么你必须包括该样式。
+
+wx.FRAME_EX_CONTEXTHELP：这是用于Windows操作系统的，它在标题栏的右角放置问号帮助图标。这个样式是与wx.MAXIMIZE_BOX和WX.MINIMIZE_BOX样式互斥的。它是一个扩展的样式，并且必须使用两步来创建，稍后说明。
+
+wx.FRAME_EX_METAL：在Mac OS X上，使用这个样式的框架有一个金属质感的外观。这是一个附加样式，必须使用SetExtraStyle方法来设置。
+
+wx.MAXIMIZE_BOX：在标题栏的标准位置放置一个最大化框。
+
+wx.MINIMIZE_BOX：在标题栏的标准位置放置一个最小化框。
+
+wx.CLOSE_BOX：在标题栏的标准位置放置一个关闭框。
+
+wx.RESIZE_BORDER：给框架一个标准的可以手动调整尺寸的边框。
+
+wx.SIMPLE_BORDER：给框架一个最简单的边框，不能调整尺寸，没有其它装饰。该样式与所有其它装饰样式是互斥的。
+
+wx.SYSTEM_MENU：在标题栏上放置一个系统菜单。这个系统菜单的内容与你所使用的装饰样式有关。例如，如果你使用wx.MINIMIZE_BOX，那么系统菜单项就有“最小化”选项。
+
+
+wx.Frame的公共属性
+
+GetBackgroundColor()
+SetBackgroundColor(wx.Color)：背景色是框架中没有被其子窗口部件覆盖住的那些部分的颜色。你可以传递一个wx.Color或颜色名给设置方法。任何传递给需要颜色的wxPython方法的字符串，都被解释为对函数wx.NamedColour()的调用。
+
+GetId()
+SetId(int)：返回或设置窗口部件的标识符。
+
+GetMenuBar()
+SetMenuBar(wx.MenuBar)：得到或设置框架当前使用的的菜单栏对象，如果没有菜单栏，则返回None。
+
+GetPosition()
+GetPositionTuple()
+SetPosition(wx.Point)：以一个wx.Point或Python元组的形式返回窗口左上角的x,y的位置。对于顶级窗口，该位置是相对于显示区域的坐标，对于子窗口，该位置是相对于父窗口的坐标。
+
+GetSize()
+GetSizeTuple()
+SetSize(wx.Size)：C++版的get*或set*方法被覆盖。默认的get*或set*使用一个wx.Size对象。GetSizeTuple()方法以一个Python元组的形式返回尺寸。也可以参看访问该信息的另外的方法SetDimensions()。
+
+GetTitle()
+SetTitle(String)：得到或设置框架标题栏的字符串。
+
+
+wx.Frame的方法
+
+Center(direction=wx.BOTH)：框架居中（注意，非美语的拼写Centre，也被定义了的）。参数的默认值是wx.BoTH，在此情况下，框是在两个方向都居中的。参数的值若是wx.HORIZONTAL或wx.VERTICAL，表示在水平或垂直方向居中。
+
+Enable(enable=true)：如果参数为true，则框架能够接受用户的输入。如果参数为False，则用户不能在框架中输入。相对应的方法是Disable()。
+
+GetBestSize()：对于wx.Frame，它返回框架能容纳所有子窗口的最小尺寸。
+
+Iconize(iconize)：如果参数为true，最小化该框架为一个图标（当然，具体的行为与系统有关）。如果参数为False，图标化的框架恢复到正常状态。
+
+IsEnabled()：如果框架当前有效，则返回True。
+
+IsFullScreen()：如果框架是以全屏模式显示的，则返回True，否则False。细节参看ShowFullScreen。
+
+IsIconized()：如果框架当前最小化为图标了，则返回True，否则False。
+
+IsMaximized()：如果框架当前是最大化状态，则返回True，否则False。
+
+IsShown()：如果框架当前可见，则返回True。
+
+IsTopLevel()：对于顶级窗口部件如框架或对话框，总是返回True，对于其它类型的窗口部件返回False。
+
+Maximize(maximize)：如果参数为True，最大化框架以填充屏幕（具体的行为与系统有关）。这与敲击框架的最大化按钮所做的相同，这通常放大框架以填充桌面，但是任务栏和其它系统组件仍然可见。
+
+Refresh(eraseBackground=True,
+rect=None)：触发该框架的重绘事件。如果rect是none，那么整个框架被重画。如果指定了一个矩形区域，那么仅那个矩形区域被重画。如果eraseBackground为True，那么这个窗口的北影也将被重画，如果为False，那么背景将不被重画。
+
+SetDimensions(x, y, width, height,
+sizeFlags=wx.SIZE_AUTO)：使你能够在一个方法调用中设置窗口的尺寸和位置。位置由参数x和y决定，尺寸由参数width和height决定。前四个参数中，如果有的为-1，那么这个-1将根据参数sizeFlags的值作相应的解释。表8.6包含了参数sizeFlags的可能取值。
+
+Show(show=True)：如果参数值为True，导致框架被显示。如果参数值为False，导致框架被隐藏。Show(False)等同于Hide()。
+
+ShowFullScreen(show,
+style=wx.FULLSCREEN_ALL)：如果布尔参数是True，那么框架以全屏的模式被显示——意味着框架被放大到填充整个显示区域，包括桌面上的任务栏和其它系统组件。如果参数是False，那么框架恢复到正常尺寸。style参数是一个位掩码。默认值wx.FULLSCREEN_ALL指示wxPython当全屏模式时隐藏所有窗口的所有样式元素。后面的这些值可以通过使用按位运算符来组合，以取消全屏模式框架的部分装饰：wx.FULLSCREEN_NOBORDER, wx.FULLSCREEN_NOCAPTION,
+wx.FULLSCREEN_NOMENUBAR,
+wx.FULLSCREEN_NOSTATUSBAR,
+wx.FULLSCREEN_NOTOOLBAR。
+
+
+SetDimensions方法的尺寸标记
+
+wx.ALLOW_MINUS_ONE：一个有效的位置或尺寸。
+
+wx.SIZE_AUTO：转换为一个wxPython默认值。
+
+wx.SIZE_AUTO_HEIGHT：一个有效的高度，或一个wxPython默认高度。
+
+wx.SIZE_AUTO_WIDTH：一个有效的宽度，或一个wxPython默认宽度。
+
+wx.SIZE_USE_EXISTING：使用现有的尺寸。
+
+ 
+
+带有滚动条的框架
+wx.ScrolledWindow(parent, id=-1, pos=wx.DefaultPosition,
+    size=wx.DefaultSize, style=wx.HSCROLL | wx.VSCROLL,
+    name="scrolledWindow")
+
+ 
+
+
+MDI框架
+wx.MDIParentFrame(parent, id, title, pos = wx.DefaultPosition, 
+        size=wxDefaultSize, 
+        style=wx.DEFAULT_FRAME_STYLE | wx.VSCROLL | wx.HSCROLL, 
+        name="frame")
+
+
+小型框架
+wx.MiniFrame的构造函数等同于wx.Frame
+
+wx.MiniFrame的样式标记
+
+wx.THICK_FRAME：在Windows或Motif下，使用粗边框绘制框架。
+
+wx.TINY_CAPTION_HORIZONTAL：代替wx.CAPTION而显示一个较小的水平标题。
+
+wx.TINY_CAPTION_VERTICAL：代替wx.CAPTION而显示一个较小的垂直标题。
+
+
+非矩形的框架 (略)
+
+分割窗 wx.SplitterWindow
+wx.SplitterWindow(parent, id=-1, pos=wx.DefaultPosition, 
+        size=wx.DefaultSize, style=wx.SP_3D, 
+        name="splitterWindow") 
+parent是窗口部件的容器，pos是窗口部件在它的父容器中位置，size是它的尺寸。
+要显示两个子窗口，使用SplitHorizontally (window1，window2，sashPosition=0)或SplitVertically(window1, window2, sashPosition=0)
+
+
+分割窗的样式
+
+wx.SP_3D：绘制三维的边框和分割条。这是一个默认样式。
+
+wx.SP_3DBORDER：绘制三维样式的边框，不包括分割条。
+
+wx.SP_3DSASH：绘制三维样式的分割条，不包括边框。
+
+wx.SP_BORDER：绘制窗口的边框，非三维的样式。
+
+wx.SP_LIVE_Update：改变响应分割条移动的默认行为。如果没有设置这个标记，那么当用户拖动分割条时，将绘制一条线来标明分割条的新位置。子窗口的尺寸没有被实际地更新，直到完成分割条拖放。如果设置了这个标记，那么当分割条在被拖动时，子窗口的尺寸将不断地变化。
+
+wx.SP_NOBORDER：不绘制任何边框。
+
+wx.SP_NO_XP_THEME ：在Windows XP系统下，分割条不使用XP的主题样式，它给窗口一个更经典的外观。
+
+wx.SP_PERMIT_UNSPLIT：如果设置了这个样式，那么窗口始终不被分割。如果不设置，你可以通过设置大于0的最小化的窗格尺寸来防止窗口被分割。
+
+
+分割窗的事件类型
+
+EVT_SPLITTER_DCLICK：当分割条被双击时触发。捕捉这个事件不阻塞标准的不分割行为，除非你调用事件的Veto()方法。
+
+EVT_SPLITTER_SASH_POS_CHANGED：分割条的改变结束后触发，但在此之前，改变将在屏幕上显示（因此你可以再作用于它）。这个事件可以使用Veto()来中断。
+
+EVT_SPLITTER_SASH_POS_CHANGING：当分割条在被拖动时，不断触发该事件。这个事件可以通过使用事件的Veto()方法来中断，如果被中断，那么分割条的位置不被改变。
+
+EVT_SPLITTER_UNSPLIT：变成未分割状态时触发。
+
+ 
+
+模式对话框
+import wx
+
+class SubclassDialog(wx.Dialog):
+    def __init__(self):#初始化对话框
+        wx.Dialog.__init__(self, None, -1, 'Dialog Subclass', 
+                size=(300, 100))
+        okButton = wx.Button(self, wx.ID_OK, "OK", pos=(15, 15))
+        okButton.SetDefault()
+        cancelButton = wx.Button(self, wx.ID_CANCEL, "Cancel", 
+                pos=(115, 15))
+        
+if __name__ == '__main__':
+    app = wx.PySimpleApp()
+    app.MainLoop() 
+    dialog = SubclassDialog()
+    result = dialog.ShowModal()#显示模式对话框
+    if result == wx.ID_OK:
+        print "OK"
+    else:
+        print "Cancel"
+    dialog.Destroy()
+
+ 
+
+警告框
+方法一
+import wx
+
+if __name__ == "__main__":
+    app = wx.PySimpleApp()
+
+# 方法一，使用类
+    dlg = wx.MessageDialog(None, "Is this explanation OK?",
+                          'A Message Box',
+                          wx.YES_NO | wx.ICON_QUESTION)
+    retCode = dlg.ShowModal()
+    if (retCode == wx.ID_YES):
+        print "yes"
+    else:
+        print "no"
+    dlg.Destroy()
+
+
+方法二
+retCode = wx.MessageBox("Is this way easier?", "Via Function",
+            wx.YES_NO | wx.ICON_QUESTION)
+
+ 
+
+ 
+
+wx.MessageDialog类
+
+wx.MessageDialog(parent, message, caption="Message box", 
+    style=wx.OK | wx.CANCEL, pos=wx.DefaultPosition)
+
+
+wx.CANCEL：包括一个cancel（取消）按钮。这个按钮有一个ID值wx.ID_CANCEL。
+
+wx.NO_DEFAULT：在一个wx.YES_NO对话框中，No（否）按钮是默认的。
+
+wx.OK：包括一个OK按钮，这个按钮有一个ID值wx.ID_OK。
+
+wx.YES_DEFAULT：在一个wx.YES_NO对话框中，Yes按钮是默认的。这是默认行为。
+
+wx.YES_NO：包括Yes和No按钮，各自的ID值分别是wx.ID_YES和wx.ID_NO。
+
+
+wx.MessageDialog的图标样式
+
+wx.ICON_ERROR：表示一个错误的图标。
+
+wx.ICON_EXCLAMATION：表示警告的图标。
+
+wx.ICON_HAND：同wx.ICON_ERROR。
+
+wx.ICON_INFORMATION：信息图标，字母i。
+
+wx.ICON_QUESTION：问号图标。
+
+
+样式wx.STAY_ON_TOP将对话框显示在系统中任何其它窗口的上面，包括系统窗口和wxPython应
+
+用程序窗口。
+
+ 
+
+ 
+
+
+wx.MessageBox()函数
+
+wx.MessageBox(message, caption="Message", style=wx.OK)
+
+要在你的消息框中显示大量的文本，你可以使用wxPython特定的类
+
+wx.lib.dialogs.ScrolledMessageDialog，它包含如下的构造函数：
+
+wx.lib.dialogs.ScrolledMessageDialog(parent, msg, caption, 
+        pos=wx.wxDefaultPosition, size=(500,300))
+
+这个对话框不使用本地消息框控件，它根据别的wxPython窗口部件来创建一个对话框。它只显
+
+示一个OK按钮，并且没有更多的样式信息。
+
+ 
+
+ 
+
+
+wx.TextEntryDialog
+wx.TextEntryDialog(parent, message, caption="Please enter text", 
+    defaultValue="", style=wx.OK | wx.CANCEL | wx.CENTRE, 
+    pos=wx.DefaultPosition)
+
+下面这些是使用文本对话框的便利函数：
+
+1、wx.GetTextFromUser()
+2、wx.GetPasswordFromUser()
+3、wx.GetNumberFromUser()
+
+wx.GetTextFromUser(message, caption="Input text", 
+    default_value="", parent=None)
+
+这里的message, caption, default_value, 和 parent与wx.TextEntryDialog的构造函数中的
+
+一样。如果用户按下OK，该函数的返回值是用户所输入的字符串。如果用户按下Cancel，该函
+
+数返回空字符串。
+
+如果你希望用户输入密码，你可以使用wx.GetPasswordFromUser()函数：
+
+wx.GetPasswordFromUser(message, caption="Input text", 
+    default_value="", parent=None)
+
+这里的参数意义和前面的一样。用户的输入被显示为星号，如果用户按下OK，该函数的返回值
+
+是用户所输入的字符串。如果用户按下Cancel，该函数返回空字符串。
+
+最后，你可以使用wx.GetNumberFromUser()要求用户输入一个数字：
+
+wx.GetNumberFromUser(message, prompt, caption, value, min=0, 
+    max=100, parent=None)
+
+ 
+
+
+用对话框显示选项列表 wx.SingleChoiceDialog
+
+有两个用于单选对话框的便利函数。第一个是wx.GetSingleChoice，它返回用户所选的字符串
+
+：
+
+wx.GetSingleChoice(message, caption, aChoices, parent=None)
+
+第二个是wx.GetSingleChoiceIndex:
+
+wx.GetSingleChoiceIndex(message, caption, aChoices, parent=None)
+
+这个函数与第一个有相同的参数，但是返回值不同。如果用户按下OK，则返回值是所选项的索
+
+引，如果用户按下Cancel，则返回值是-1。
+
+ 
+
+在对话框上显示进度条
+wx.ProgressDialog(title, message, maximum=100, parent=None, 
+        style=wx.PD_AUTO_HIDE | wx.PD_APP_MODAL)
+
+wx.ProgressDialog的样式
+
+wx.PD_APP_MODAL：如果设置了这个样式，进度条对整个应用程序是模式的，这将阻塞所有的
+
+用户事件。如果没有设置这个样式，那么进度条仅对它的父窗口是模式的。
+
+wx.PD_AUTO_HIDE：进度条将自动隐藏自身直到它达到它的最大值。
+
+wx.PD_CAN_ABORT：在进度条上放上一个Cancel按钮，以便用户停止。如何响应来自该对话框
+
+的取消将在以后说明。
+
+wx.PD_ELAPSED_TIME：显示该对话框已经出现了多长时间。
+
+wx.PD_ESTIMATED_TIME：显示根据已花的时间、当前的计数值和计数器的最大值所估计出的完
+
+成进度所需的总时间。
+
+wx.PD_REMAINING_TIME：显示要完成进度所估计的剩余时间，或(所需总时间-已花时间)。
+
+ 
+
+
+文件选择对话框 wx.FileDialog
+wx.FileDialog(parent, message="Choose a file", defaultDir="", 
+        defaultFile="", wildcard="*.*", style=0, 
+        pos=wx.DefaultPosition)
+
+用于打开文件的对话框有两个标记，它们进一步影响对话框的行为。wx.HIDE_READONLY标记灰
+
+化复选框，使用户以只读模式打开文件。wx.MULTIPLE标记使用户可以在一个目录中选择打开
+
+多个文件。
+
+
+使用文件对话框的函数：
+
+wx.FileSelector(message, default_path="", default_filename="", 
+    default_extension="", wildcard="*.*'', flags=0, parent=None, 
+    x=-1, y=-1)
+
+message, default_path, default_filename, 和 wildcard参数意义与构造函数的基本相同，
+
+尽管参数的名字不同。flags参数通常被称作style，default_extension参数是保存为文件时
+
+默认的后缀（如果用户没有指定后缀的情况下）。如果用户按下OK，返回值是字符串形式的路
+
+径名，如果用户按下Cancel则返回一个空字符串。
+
+ 
+
+ 
+
+选择一个目录
+wx.DirDialog(parent, message="Choose a directory", defaultPath="", 
+    style=0, pos = wx.DefaultPosition, size = wx.DefaultSize, 
+    name="wxDirCtrl")
+
+ 
+
+字体选择对话框
+wx.FontDialog(parent, data)
+
+
+颜色对话框
+wx.ColourDialog(parent, data=None)
+
+
+使用户能够浏览图像
+ImageDialog(parent, set_dir=None)
+
+向导
+wx.wizard.Wizard(parent, id=-1, title=wx.EmptyString, 
+    bitmap=wx.NullBitmap, pos=wx.DefaultPosition)
+
+EVT_WIZARD_CANCEL：当用户按下Cancel按钮时产生。该事件可以使用Veto()来否决，这种情况下，对话框将不会消失。
+
+EVT_WIZARD_FINISHED ：当用户按下Finish按钮时产生。
+
+EVT_WIZARD_HELP：当用户按下Help按钮时产生。
+
+EVT_WIZARD_PAGE_CHANGED：在页面被切换后产生。
+
+EVT_WIZARD_PAGE_CHANGING：当用户已请求了一个页面切换时产生，这时页面还没有发生切换。这个事件可以被否决（例如，如果页面上有一个必须被填写的字段）。
+
+wx.wizard.WizardPageSimple类被当作一个面板一样。它的构造函数使你可以设置上一页和下一页，如下所示：
+
+wx.wizard.WizardPageSimple(parent=None, prev=None, next=None)
+
+如果你想在构造器中设置它们，你可以使用SetPrev()和SetNext()方法。如果那样太麻烦，你可以使用wx.wizard.WizardPageSimple_Chain()，它设置两页间的链接关系。
+
+向导页的复杂版：wx.wizard.WizardPage，稍微不同。它没有显式地设置前一页和下一页，而是使你能够使用更复杂的逻辑去定义下一步到哪儿。它的构造函数如下：
+
+wx.WizardPage(parent, bitmap=wx.NullBitmap, resource=None)
+
+ 
+
+
+启动提示
+wx.CreateFileTipProvider(filename, currentTip)
+
+显示提示的函数是wx.ShowTip():
+
+wx.ShowTip(parent, tipProvider, showAtStartup)
+
+ 
+
+创建菜单的步骤：
+·创建菜单栏 wx.MenuBar()
+·把菜单栏附加给框架
+·创建单个的菜单 wx.Menu(title="", style=0) 然后 Append(menu, title)
+·把菜单附加给菜单栏或一个父菜单
+·创建单个的菜单项
+·把这些菜单项附加给适当的菜单
+·为每个菜单项创建一个事件绑定
+
+ 
+
+在菜单栏处理菜单的wx.MenuBar的方法
+
+Append(menu, title)：将menu参数添加到菜单栏的尾部（靠右显示）。title参数被用来显示
+
+新的菜单。如果成功返回True，否则返回False。
+
+Insert(pos, menu, title)：将给定的menu插入到指定的位置pos（调用这个函数之后，
+
+GetMenu(pos) == menu成立）。就像在列表中插入一样，所有后面的菜单将被右移。菜单的索
+
+引以0开始，所以pos为0等同于将菜单放置于菜单栏的左端。使用GetMenuCount()作为pos等同
+
+于使用Append。title被用于显示名字。函数如果成功则返回True。
+
+Remove(pos)：删除位于pos的菜单，之后的其它菜单左移。函数返回被删除的菜单。
+
+Replace(pos, menu, title)：使用给定的menu，和title替换位置pos处的菜单。菜单栏上的
+
+其它菜单不受影响。函数返回替换前的菜单。
+
+wx.MenuBar包含一些其它的方法。它们用另外的方式处理菜单栏中的菜单，如表10.2所示。
+
+
+wx.MenuBar的菜单属性方法
+
+EnableTop(pos, enable)：设置位置pos处的菜单的可用/不可用状态。如果enable是True，那
+
+么该菜单是可用的，如果是False，那么它不可用。
+
+GetMenu(pos)：返回给定位置处的菜单对象。
+
+GetMenuCount()：返回菜单栏中的菜单的数量。
+
+FindMenu(title)：返回菜单栏有给定title的菜单的整数索引。如果没有这样的菜单，那么函
+
+数返回常量wx.NOT_FOUND。该方法将忽略快捷键，如果有的话。
+
+GetLabelTop(pos) 
+SetLabelTop(pos, label)：得到或设置给定位置的菜单的标签。
+
+ 
+
+
+给下拉菜单填加项目
+
+
+wx.MenuBar的菜单项处理方法
+
+FindMenuItem(menuString,itemString)：在一个名为menuString的菜单中查找名为itemString的菜单项。返回找到的菜单项或wx.NOT_FOUND。
+
+FindItemById(id)：返回与给定的wxPython标识符相关联的菜单项。如果没有，返回None。
+
+GetHelpString(id)
+SetHelpString(id,helpString)：用于给定id的菜单项的帮助字符串的获取或设置。如果没有这样的菜单项，那么get*方法返回""，set*方法不起作用。
+
+GetLabel(id)
+SetLabel(id, label)：用于给定id的菜单项的标签的获取或设置。如果没有这样的菜单项，那么get*方法返回""，set*方法不起作用。这些方法只能用在菜单栏已附加到一个框架后。
+
+ 
+
+wx.Menu的菜单项方法
+
+FindItem(itemString)：返回与给定的itemString相关的菜单项或wx.NOT_FOUND。
+
+FindItemById(id)：返回与给定的wxPython标识符相关联的菜单项。如果没有，返回None。
+
+FindItemByPosition(pos)：返回菜单中给定位置的菜单项
+
+GetHelpString(id)
+SetHelpString(id,helpString)：与菜单栏的对应方法相同。
+
+GetLabel(id)
+SetLabel(id, label)：与菜单栏的对应方法相同。
+
+ 
+
+菜单项的外观属性
+
+GetBackgroundColour()
+SetBackgroundColour(colour)：属性类型是wx.Colour，该set*方法的参数也可以是一个wxPython颜色的名称字符串。管理项目的背景色。
+
+GetFont()
+SetFont(font)：项目的显示字体。类型是wx.Font。
+
+GetTextColour()
+SetTextColour(colour)：管理显示在项目中的文本的颜色。类型和背景色的相同。
+
+ 
+
+Sizer
+
+wxPython sizer是一个对象，它唯一的目的就是管理容器中的窗口部件的布局。sizer本身不是一个容器或一个窗口部件。它只是一个屏幕布局的算法。所有的sizer都是抽象类wx.Sizer的一个子类的实例
+
+wxPython中预定义的sizer
+
+Grid：一个十分基础的网格布局。当你要放置的窗口部件都是同样的尺寸且整齐地放入一个规则的网格中是使用它。
+
+Flex grid：对grid sizer稍微做了些改变，当窗口部件有不同的尺寸时，可以有更好的结果。
+
+Grid bag：grid sizer系列中最灵活的成员。使得网格中的窗口部件可以更随意的放置。
+
+Box：在一条水平或垂直线上的窗口部件的布局。当尺寸改变时，在控制窗口部件的的行为上很灵活。通常用于嵌套的样式。可用于几乎任何类型的布局。
+
+Static box：一个标准的box sizer。带有标题和环线。
+
+ 
+
+使用一个sizer的三个基本步骤：
+
+·创建并关联sizer到一个容器。sizer被关联到容器使用wx.Window的SetSizer(sizer)方法。由于这是一个wx.Window的方法，所以这意味着任何wxPython窗口部件都可以有一个sizer，尽管sizer只对容器类的窗口部件有意义。
+
+·添加每个孩子到这个sizer。所有的孩子窗口部件需要被单独添加到该sizer。仅仅创建使用容器作为父亲的孩子窗口部件是不够的。还要将孩子窗口部件添加到一个sizer，这个主要的方法是Add()。Add()方法有一对不同的标记
+
+ 
+
+wx.GridSizer(rows, cols, vgap, hgap)
+
+对sizer添加或移除孩子 
+Add()   Add(window, proportion=0, flag=0, border=0, userData=None) 
+insert() Insert(index, window, proportion=0, flag=0, border=0, userData=None) 
+Prepend() Prepend(window, proportion=0, flag=0, border=0, userData=None) 
+Detach() Detach(window)
+
+ 
+
+尺寸调整和对齐行为标记
+
+wx.ALIGN_BOTTOM：按照窗口部件被分配的空间（格子）的底部对齐。
+
+wx.ALIGN_CENTER：放置窗口部件，使窗口部件的中心处于其所分配的空间的中心。
+
+wx.ALIGN_CENTER_HORIZONTAL：在它所处的格子中，水平居中。
+
+wx.ALIGN_CENTER_VERTICAL ：在它所处的格子中，垂直居中。
+
+wx.ALIGN_LEFT：靠着它所处的格子左边缘。这是默认行为。
+
+wx.ALIGN_TOP：靠着它所处的格子的上边缘。这是默认的行为。
+
+wx.EXPAND：填满它所处的格子空间。
+
+wx.FIXED_MINSIZE：保持固定项的最小尺寸。
+
+wx.GROW：与wx.EXPAND相同。但比之少两个字符，节约了时间。
+
+wx.SHAPED：窗口部件的尺寸改变时，只在一个方向上填满格子，另一个方向上按窗口部件原先的形状尺寸的比列填充。
+
+ 
+
+ 
+
+图像
+
+从一个文件载入一个图像，使用wx.Image的构造函数：
+wx.Image(name, type=wx.BITMAP_TYPE_ANY, index=-1)
+
+wxPython支持的图像文件格式
+
+处理器类：wx.ANIHandler    类型标记：wx.BITMAP_TYPE_ANI
+
+说明：动画光标格式。这个处理器只载入图像而不保存它们。
+
+处理器类：wx.BMPHandler 类型标记：wx.BITMAP_TYPE_BMP
+
+说明：Windows和OS/2位图格式。
+
+处理器类：wx.CURHandle 类型标记：wx.BITMAP_TYPE_CUR
+
+说明：Windows光标 图标格式。
+
+处理器类：wx.GIFHandler 类型标记：wx.BITMAP_TYPE_GIF
+
+说明：图形交换格式。由于版权限制，这个处理器不保存图像。
+
+处理器类：wx.ICOHandler 类型标记：wx.BITMAP_TYPE_ICO
+
+说明：Windows图标格式。
+
+处理器类：wx.IFFHandler 类型标记：wx.BITMAP_TYPE_IFF
+
+说明：交换文件格式。这个处理器只载入图像，它不保存它们。
+
+处理器类：wx.JPEGHandler 类型标记：wx.BITMAP_TYPE_JPEG
+
+说明：联合图形专家组格式。
+
+处理器类：wx.PCXHandler 类型标记：wx.BITMAP_TYPE_PCX
+
+说明：PC画刷格式。当以这种格式保存时，wxPython计算在这个图像中的不同颜色的数量。如果可能的话，这个图像被保存为一个8位图像（也就是说，如果它有256种或更少的颜色）。否则它保存为24位。
+
+处理器类：wx.PNGHandler 类型标记：wx.BITMAP_TYPE_PNG
+
+说明：便携式网络图形格式。
+
+处理器类：wx.PNMHandler 类型标记：wx.BITMAP_TYPE_PNM
+
+说明：只能载入ASCII或原始的RGB图像。图像被该处理器保存为原始的RGB。
+
+处理器类：wx.TIFFHandler 类型标记：wx.BITMAP_TYPE_TIF
+
+说明：标签图像文件格式。
+
+处理器类：wx.XPMHandler 类型标记：wx.BITMAP_TYPE_XPM
+
+说明：XPixMap格式。
+
+处理器类：自动 类型标记：wx.BITMAP_TYPE_ANY
+
+说明：自动检测使用的格式，然后调用相应的处理器。
+
+ 
+
+ 
+
+ 
+
+wx.Image的图像处理方法
+
+ConvertToMono(r, g, b)：返回一个与原尺寸一致的wx.Image，其中所有颜色值为(r, g, b)的像素颜色改为白色，其余为黑色。原图像未改变。
+
+Mirror(horizontally=True)：返回原图像的一个镜像图像。如果horizontally参数是True，那么镜像图像是水平翻转了的，否则是垂直翻转了的。原图像没有改变。
+
+Replace(r1, g1, b1, r2, g2, b2)：改变调用该方法的图像的所有颜色值为r1, g1, b1的像素的颜色为r2, g2, b2。
+
+Rescale(width, height)：改变图像的尺寸为新的宽度和高度。原图像也作了改变，并且颜色按比例地调整到新的尺寸。
+
+Rotate(angle, rotationCentre, interpolating=True, offestAfterRotation=None)：返回旋转原图像后的一个新的图像。参数angle是一个浮点数，代表所转的弧度。rotationCentre是一个wx.Point，代表旋转的中心。如果interpolating为True，那么一个较慢而精确的算法被使用。offsetAfterRotation是一个坐标点，表明在旋转后图像应该移位多少。任何未被覆盖的空白像素将被设置为黑色，或如果该图像有一个遮罩色，设置为遮罩色（mask color）。
+
+Rotate90(clockwise=True)：按照参数clockwise的布尔值，控制图像按顺或逆时针方向作90度的旋转。
+
+Scale(width, height)：返回一个原图像的拷贝，并按比例改变为新的宽度和高度。
+
+ 
+
+ 
+
+如何改变光标
+
+预定义的光标
+
+wx.CURSOR_ARROW：标准的箭头光标。
+
+wx.CURSOR_ARROWWAIT：一个表示繁忙的光标，它同时显示标准箭头和一个沙漏。只在Windows系统有效。
+
+wx.CURSOR_BLANK：不可见的光标。当你想欺骗用户时是有用的。
+
+wx.CURSOR_BULLSEYE：一个bullseye cursor（在较大的光标里面有小的园环）。有时对于精确指向是有用的。
+
+wx.CURSOR_CHAR：一个字符光标。不是在所平台上有效。
+
+wx.CURSOR_CROSS：十字叉丝光标。
+
+wx.CURSOR_HAND：典型的手指型光标。
+
+wx.CURSOR_IBEAM：垂直的I型光标，通常用在一个文本编辑域中。
+
+wx.CURSOR_LEFT_BUTTON：一个带有左按键为按下状态的鼠标——用于提示用户他应该按下左按键。不是对所有平台有效。
+
+wx.CURSOR_MAGNIFIER：放大镜，通常用于表示缩放。
+
+wx.CURSOR_MIDDLE_BUTTON：一个带有中间按键为按下状态的鼠标。
+
+wx.CURSOR_NO_ENTRY：一个中间有一个斜线的园环光标。用于表明屏幕中的一个区域是无效的（例如对一个目标的拖放）。
+
+wx.CURSOR_PAINT_BRUSH：像一个画刷样的光标。通常用在绘图程序中。
+
+wx.CURSOR_PENCIL：钢笔样光标，常用于绘图程序中。
+
+wx.CURSOR_POINT_LEFT：左指向箭头光标。
+
+wx.CURSOR_POINT_RIGHT：右指向箭头光标。
+
+wx.CURSOR_QUESTION_ARROW：一个带有问号的箭头，常用于表示上下文帮助。
+
+wx.CURSOR_RIGHT_ARROW：正如标准的箭头光标一样，只是镜像化的，以便它指向右边。
+
+wx.CURSOR_RIGHT_BUTTON：一个右按键按下的鼠标。
+
+wx.CURSOR_SIZENESW：光标的一种，用于表明两个方向的尺寸调整，光标的倾斜方向是45度（西南到东北方向）。
+
+wx.CURSOR_SIZENS：垂直调整尺寸光标，上下指向。
+
+wx.CURSOR_SIZENWSE：光标的一种，用于表明两个方向的尺寸调整，光标的倾斜方向是135度。
+
+wx.CURSOR_SIZEWE：水平调整尺寸光标，左右指向。
+
+wx.CURSOR_SIZING：通常的尺寸调整光标，四个方向的箭头指向。
+
+wx.CURSOR_SPRAYCAN：另一个绘图用的光标。
+
+wx.CURSOR_WAIT：沙漏等待光标。
+
+wx.CURSOR_WATCH：手表型等待光标
+
+2017-08-18 09:35:27
+
+# 红色字体
+
+print('\033[1;31m')
+
+print('*' * 10)
+
+print('hello world！')
+
+print('*' * 10)
+
+print('\033[0m')
+
+ 
+
+# 绿色字体
+
+print('\033[1;32m' + 'green' + '\033[0m')
+
+ 
+
+# 蓝色字体
+
+print('\033[1;34m' + 'blue' + '\033[0m')
+
+ 
+
+# 黄字下划线
+
+print('\033[4;33m' + 'yellow' + '\033[0m')
+
+ 
+
+# 红底黑字
+
+print('\033[1;30;41m' + 'black' + '\033[0m')
+
+ 
+
+# 白底黑字
+
+print('\033[1;30;47m' + 'white' + '\033[0m')
+
+ 
+
+print('normal')
+
+
+
+from django import forms
+from uauth.models import UserInfo
+
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = UserInfo
+        fields = ("username", "birthday", "signature", "avatar")
+
+
+from django.forms import model_to_dict
+from django.contrib import messages
+from uauth.forms import UserInfoForm
+from uauth.model import UserInfo
+
+@login_required(login_url="/uauth/;ogin/")
+def mod_userinfo(request):
+    user_info = request.user.userinfo
+    user_info_dict = model_to_dict(user_info)
+
+    if request.method == "GET":
+        form = UserInfoForm(data=user_info_dict)
+        return render(request, "uauth/mod_userinfo.html", {"form": form})
+    if request.method == "POST":
+        # 保存图片
+        pic = request.FILES["avatar"]
+        user_info.avatar = pic
+        user_info.save()
+        # 保存数据
+        form = UserInfoForm(data=request.POST, instance=user_info)
+        if form.is_valid():
+            form.save()
+            return redirect(to="/uauth/my-info-page")
+        else:
+            messages.add_message(request, messages.ERROR, form.errors.as_text())
+            return render(request, "uauth/mod_userinfo", {"form": form})
+
+
+# 我要做一个修改用户信息的页面的时候用到了bootstrap_form,但是我想要他水平horizontal排列
+
+
+# 使用layout=horizontal之后发现各个input之间紧挨着，没有一定的空隙
+
+
+# 通过查官方文档知道要把form的class改成form-horizontal，但是bootstrap_form中没有参数去修改form的class的
+
+
+# 经过一番比较与排查，发现
+
+
+# 让form_group_class="form-group form-horizontal" horizontal_label_class="col-sm-3" horizontal_field_class="col-sm-7 form-group" 也能达到类似的效果
+
+
+# 经过修改后的bootstrap_form是：
+
+
+{% bootstrap_form form layout="horizontal" form_group_class="form-group form-horizontal" horizontal_label_class="col-sm-3 text-right" horizontal_field_class="form-group col-sm-7" %}
+最早我的form=UserInfoForm(request.POST)直接is_valid()通过后save()是有问题的，因为这里面的字段并不是全部的UserInfo字段，就会把其他字段的内容变成null，就报错，这是我们需要把对象传进来
+form = UserInfoForm(data=request.POST, instance=user_info)
+这是再save()的时候就是更新，而不是把哪些字段为空了。
+我上面的avatar是一个图片字段，是用户头像，上传的时候，form取的是request.POST里的数据，是无法取到file文件的，所以我又写了几步来保存图片，当然也可以在里面对图片处理(PIL)和筛选.
+
+pic = request.FILES["avatar"]
+user_info.avatar = pic
+user_info.save()
+
+
+
+def path_and_rename(instance,filename):
+    upload_to ='img/'
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid4().hex, ext)
+    print(filename)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
+1E306C2A0001253075001909111827440100000000003230313930393037313532370100010101
+1E306C2A000130750019091119105801
+
+
+设备心跳(T1)(回包): {"access":"","content":"1E306C2A000130750019091916481801","instruct":""}
+设备心跳(T1): {"access":"","content":"1E306C2A0001253075001909191648180100000000003230313930393138313532370100000000","instruct":""}
+设备心跳(T1)(回包): {"access":"","content":"1E306C2A000130750019091916481801","instruct":""}
+设备心跳(T1): {"access":"","content":"1E306C2A0001253075001909191648190100000000003230313930393138313532370100010000","instruct":""}
+设备心跳(T1)(回包): {"access":"","content":"1E306C2A000130750019091916481901","instruct":""}
+
+POST http://192.168.0.2:8080/api/services/hwd/TPlus/accessApi HTTP/1.1
+{"access":"55BB40001E306C2A000225A40000000098020000000000B0A2B7B2CCE1C2F2C2F4CCE1C0B2B5C20101FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9955EE","content":"1E306C2A000230750019092316270301","instruct":""}
+{"content":"","access":"55BB0F001E306C2A000225A4900000009800E655EE","instruct":""}

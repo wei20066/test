@@ -1,0 +1,99 @@
+import time
+# 1.时间戳格式——单位是秒，给计算机用的
+print(time.time())
+time_now = time.time()
+# 2.结构化格式
+str_time = time.localtime(time_now)    #本地时间
+gm_time = time.gmtime(time_now)   #格林豪治时间
+print(str_time)
+print(gm_time)
+
+# 3.格式化格式—给人看的
+print(time.strftime("%Y-%m-%d %H:%M:%S", str_time))   #将结构化时间转化给人看的格式化时间格式
+
+#注意点：三种格式的转换
+#第一种：时间戳—》结构化时间—》格式化时间  time.time()->time.localtime()/gmtime()->time.strftime()
+#第二章：格式化时间->结构化时间->时间戳时间  time.strptime()->time.mktime()->time.time()
+# 示例1:1500000000
+struct_time = time.localtime(1500000000)
+time_new = time.strftime("%Y-%m-%d %H:%M:%S", struct_time)
+print(time_new)
+
+#示例2：2017-07-14 10:40:00 转回去
+struct_time = time.strptime(time_new, "%Y-%m-%d %H:%M:%S")
+print(struct_time)
+new_time = time.mktime(struct_time)
+print(new_time)
+
+#计算当前月1号的时间戳时间
+def get_time():
+    time_now = input("\033[31;1m请输入年月： \033[0m")
+    get_struct_time = time.strptime(time_now, "%Y-%m")
+    print(get_struct_time)
+    get_time = time.mktime(get_struct_time)
+    return get_time
+ret = get_time()
+print(ret)
+
+#计算两个时间差几天 几小时 几分 几秒
+print(time.localtime(0))
+
+def dif_time():
+    start_time = input("\033[31;1m请输入时间： \033[0m")
+    end_time = input("\033[31;1m请输入时间： \033[0m")
+    end_struct_time = time.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+    start_struct_time = time.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+    get_stime = time.mktime(start_struct_time)
+    get_etime = time.mktime(end_struct_time)
+    dif_time = get_etime - get_stime
+    if dif_time > 0:
+        get_dif_time = time.localtime(dif_time)
+        ret = "过去了%s年%s月%s天%s小时%s分钟%s秒"%((get_dif_time.tm_year - 1970), (get_dif_time.tm_mon - 1), (get_dif_time.tm_mday - 1), (get_dif_time.tm_hour - 8), (get_dif_time.tm_min - 0), (get_dif_time.tm_sec - 0))
+        print(ret)
+    else:
+        print("输入时间有误！")
+        exit()
+
+dif_time()
+
+from django.contrib.auth.models import User
+>>> user = User.objects.get(username = 'username')
+>>> user.set_password('new_password')
+>>> user.save()
+
+
+<div class="row" style="margin-top: 50px;">
+    <form class="form-inline" id="excelForm" action="/index" method="post" enctype="multipart/form-data">
+	<div class="form-group" style="margin-left: 30px">
+	<label for="fileupload">浏览:</label>
+	<input id="fileupload" type="file" name="fileupload" accept=".xls,.xlsx" multiple="" style="display:none;" />
+	<input type='text' class="form-control" name='textfield' id='textfield' autocomplete="off" readonly="readonly" />
+	<input id="excelImport" type="button" value="浏览" class="btn btn-primary" />
+	</div>
+	<div class="form-group" style="margin-left: 20px">
+	<label for="input_second">用户名：</label>
+	<input type="text" class="form-control" name="name" id="name" placeholder="" autocomplete="off">
+	</div>        
+	<div class="form-group" style="margin-left: 20px">
+	<label for="input_third">密码：</label>
+	<input type="text" class="form-control" name="secret" id="secret" placeholder="" autocomplete="off">
+	</div>        
+	<button type="button" id="uploadSubmit" class="btn btn-danger" style="color: #FFFFFF;background-color: #10B47D;font-size:15px; padding: 0px 16px 0px !important;height:30px;">提交</button>
+	</form>
+</div>
+	<script>    
+	$(document).ready(function() {
+	$("#excelImport").click(function() {
+	$('#fileupload').click();        });
+	$("#uploadSubmit").click(function() {
+	$('#excelForm').submit();        });
+	$('#fileupload').change(function(){
+	document.getElementById("textfield").value =
+	document.getElementById("fileupload").files[0].name;
+	})    });
+	</script>
+
+
+python manage.py createsuperuser 
+
+{"content":"","access":"55BB0F001E306C2A000225A49000000146009555EE","instruct":""}

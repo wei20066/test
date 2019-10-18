@@ -133,22 +133,24 @@ def logout(request):
     auth.logout(request) #退出登录
     response = HttpResponseRedirect('/accounts/login/')
     return response
+
+
 class PictureForm(forms.Form):
     title=forms.CharField()
     headImg=forms.FileField()
 
 # 上传图片
 # 返回上传图片的页面
-def get_upload(request):
-    #if request.method=="POST":
-    #    pcf=PictureForm(request.POST)
-    #    if pcf.is_valid():
-    #        print(pcf.cleaned_data['title'])
-    #        return HttpResponse('OK')
-    #else:
-    #    pcf=PictureForm()
-    #return render(request,'upload_image.html',{'pcf':pcf})
-    return render(request,'upload_image.html')
+def get_upload_form(request):
+    if request.method=="POST":
+        pcf=PictureForm(request.POST)
+        if pcf.is_valid():
+            print(pcf.cleaned_data['title'])
+            return HttpResponse('OK')
+    else:
+        pcf=PictureForm()
+    return render(request,'upload_image.html',{'pcf':pcf})
+    #return render(request,'upload_image.html')
 
 #　发来表单　实现上传功能
 def upload(request):
@@ -172,7 +174,25 @@ def upload(request):
             pic.write(c)
     return HttpResponse("上传成功")
     
-    
+def get_upload_model(request):
+    return render(request,'upload_image1.html')
+
+def upload_a(request):
+    # 从请求当中　获取文件对象
+    f1 = request.FILES.get('picture')
+    #filename=f1.name
+    #ext=filename.split('.')[-1]
+    #　利用模型类　将图片要存放的路径存到数据库中
+    #ext = fl.name
+    #f1.name = '{}.{}'.format(uuid4().hex, ext)
+    # 在之前配好的静态文件目录static/media/booktest 下 新建一个空文件
+    # 然后我们循环把上传的图片写入到新建文件当中
+    fname = settings.MEDIA_ROOT + "/img/" + f1.name
+    with open(fname,'wb') as pic:
+        for c in f1.chunks():
+            pic.write(c)
+    return HttpResponse("上传成功")    
+
 def show_pic(request):
-   pic_obj = Pictures.objects.get(id=1)
-   return render(request,'img/show_pic.html',{'pic_obj':pic_obj})
+   pic_obj = Pictures.objects.get(id=12)
+   return render(request,'show_pic.html',{'pic_obj':pic_obj})

@@ -3,6 +3,7 @@
 	{% load bootstrap3 %}
 	{% bootstrap_css %}
 	{% bootstrap_javascript %} 
+	<script type="text/javascript"  src='../../static/js/jquery.js' charset="UTF-8"></script>
 	<title>Guest Manage</title>
 	</head>
 
@@ -40,8 +41,12 @@
 		
 		<div class="row" style="padding-top: 80px;">
 			<div class="col-md-2">
+			
 			</div>
-				<div class="col-md-8">	
+				<div class="col-md-8">
+				<div>
+				{% bootstrap_button "添加"  button_type="link" href="#" %}
+				</div>
 					<table class="table table-striped"> 
 						<thead> 
 							<tr> 
