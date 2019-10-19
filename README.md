@@ -16,3 +16,6 @@ int('10')   	# 字符串转换成10进制整数
 hex(16)     	# 10进制转16进制
 oct(8)      	# 10进制转8进制
 bin(8)      	# 10进制转2进制
+
+<script type="text/javascript"  src='../../static/assets/bootstrap/js/bootstrap.min.js' charset="UTF-8"></script>
+<link rel="stylesheet" href="../../static/assets/bootstrap/css/bootstrap.min.css">
