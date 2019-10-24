@@ -19,3 +19,6 @@ bin(8)      	# 10进制转2进制
 
 <script type="text/javascript"  src='../../static/assets/bootstrap/js/bootstrap.min.js' charset="UTF-8"></script>
 <link rel="stylesheet" href="../../static/assets/bootstrap/css/bootstrap.min.css">
+https://github.com/EasyDarwin/EasyDarwin
+https://www.jianshu.com/p/0cd8259aed8e
+http://www.easydarwin.org/
