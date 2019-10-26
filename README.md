@@ -22,3 +22,13 @@ bin(8)      	# 10进制转2进制
 https://github.com/EasyDarwin/EasyDarwin
 https://www.jianshu.com/p/0cd8259aed8e
 http://www.easydarwin.org/
+https://nvr.winsite.com/
+
+http://lib.csdn.net/bases
+https://msdn.microsoft.com/zh-cn/library/system.windows.forms.toolstripoverflow_members(v=vs.90).aspx
+https://www.zktimecube.com/?#/app
+http://www.cnblogs.com/fnng/p/3871712.html
+http://www.51testing.com/html/54/152754-876138.html
+http://www.yiibai.com/python/
+http://www.runoob.com/python/python-socket.html
+http://www.runoob.com/python/python-multithreading.html

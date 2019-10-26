@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>图书管理平台</title>
+		<style type="text/css">
+			.divInput {
+				float: left;
+				width: 310px;
+				margin-left: 5%;
+				line-height: 200%;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<p align="center">图书管理平台</p>
+		<p align="center">图书入库</p>
+		<div class="divInput">
+			序号：
+			<div style="float: right;">
+				<input type="text" name="bkno" id="bkno" size="30" />	
+			</div>
+		</div>
+		<div class="divInput">
+			书名：
+			<div style="float: right;">
+				<input type="text" name="bkname" id="bkname" size="30" />
+			</div>
+		</div>
+		<div class="divInput">
+			定价：
+			<div style="float: right;">
+				<input type="text" name="bkprice" id="bkprice" size="30" />
+			</div>
+		</div>
+		<div class="divInput">
+			作者：
+			<div style="float: right;">
+				<input type="text" name="bkauthor" id="bkauthor" size="30" />
+			</div>
+		</div>
+		<div align="center" style="clear: both;padding: 10px;">
+		    <input type="button" onclick="addBook()" value="添加图书"/>
+		</div>
+		<hr />
+		<table id="table1" width="90%" border="1" align="center" cellpadding="5" cellspacing="1">
+			<caption style="line-height: 30px;">现存图书列表</caption>
+			<tr>
+				<th>序号</th>
+				<th>书名</th>
+				<th>定价</th>
+				<th>作者</th>
+				<th>操作</th>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		function validation(){
+			alert(ths.value);
+		}
+		function addBook(){
+			var values = new Array(4);
+			values[0] = document.getElementById("bkno").value;
+			values[1] = document.getElementById("bkname").value;
+			values[2] = document.getElementById("bkprice").value;
+			values[3] = document.getElementById("bkauthor").value;
+			//创建元素
+			var table = document.getElementById("table1");
+			var newRow = table.insertRow(table.rows.length);
+			newRow.id = values[0];
+			for(var i=0;i<values.length;i++){
+				var cell = newRow.insertCell(i);
+				cell.align = "center";
+				cell.innerHTML = (values[i]);
+			}
+			var cell =newRow.insertCell(4);
+			cell.align = "center";
+			cell.innerHTML = '<a href="#" onclick="modifyBook(this)">修改</a>'+
+			'&nbsp;&nbsp;&nbsp;<a href="#" onclick="deleteTr(this)">删除</a>';
+		}
+		function deleteTr(obj){
+			var Row=obj.parentNode;
+			var wenzi=Row.parentNode.firstChild.innerHTML;
+			var r = confirm("您确定删除序号为"+wenzi+"的图书吗？"+Row.tagName.toLowerCase());
+			if(r == true){
+				while(Row.tagName.toLowerCase()!="tr")
+				{
+					Row=Row.parentNode;
+				}
+				Row.parentNode.removeChild(Row); 
+			}
+		}
+		function modifyBook(obj){
+			var values = new Array(4);
+			values[0] = document.getElementById("bkno").value;
+			values[1] = document.getElementById("bkname").value;
+			values[2] = document.getElementById("bkprice").value;
+			values[3] = document.getElementById("bkauthor").value;
+			var Row1=obj.parentNode.parentNode.childNodes;				
+			for(var i=0;i<values.length;i++){
+				Row1[i].innerHTML = values[i];
+			}
+			
+			Row1[4].innerHTML = '<a href="#" onclick="modifyBook(this)">修改</a>'+
+			'&nbsp;&nbsp;&nbsp;<a href="#" onclick="deleteTr(this)">删除</a>';
+			
+		}
+	</script>
+</html>
