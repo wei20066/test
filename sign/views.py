@@ -11,6 +11,7 @@ from django.urls import reverse
 from uuid import uuid4
 import os
 from django import forms
+import datetime
 
 # Create your views here.
 def index(request):
@@ -196,3 +197,13 @@ def upload_a(request):
 def show_pic(request):
    pic_obj = Pictures.objects.get(id=12)
    return render(request,'show_pic.html',{'pic_obj':pic_obj})
+   
+   
+def hours_ahead(request,offset):
+    try: 
+        offset = int(offset) 
+    except ValueError:
+        raise Http404() 
+    dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
+    html = "In %s hour(s), it will be %s. " % (offset, dt) 
+    return HttpResponse(html)

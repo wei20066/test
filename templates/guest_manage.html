@@ -1,15 +1,11 @@
 <html lang="zh-CN">
 
 <head>
-    {% load bootstrap3 %} {% bootstrap_css %} {% bootstrap_javascript %}
     <script type="text/javascript" src='../../static/assets/js/jquery.js' charset="UTF-8"></script>
-    <script type="text/javascript" src='../../static/assets/bootstrap/js/bootstrap.min.js' charset="UTF-8"></script>
+	 {% load bootstrap3 %} {% bootstrap_css %} {% bootstrap_javascript %}
     <script type="text/javascript" src='../../static/assets/sign/js/guest_manage.js' charset="UTF-8"></script>
     <link rel="stylesheet" href="../../static/assets/sign/css/guest.css">
     <title>Guest Manage</title>
-	<style>
-       
-    </style>
 </head>
 
 <body role="document">
@@ -35,7 +31,7 @@
             </nav>
         </div>
         <div class="row">
-            <div class="page-header" style="padding-top: 80px;">
+            <div class="page-header col-sm-8 col-sm-offset-7" style="padding-top: 40px;">
                 <div id="navbar" class="navbar-collapse collapse">
                     <form class="navbar-form" method="get" action="/search_guest_name/">
                         <div class="form-group">
@@ -43,13 +39,14 @@
                         </div>
                         <button type="submit" class="btn btn-success">搜索</button>
                     </form>
-                    <p><a href="/upload_image/">上传照片</a></p>
+					
+                    <!--<p><a href="/upload_image/">上传照片</a></p>!-->
                 </div>
             </div>
         </div>
         <!-- 嘉宾列表 -->
 
-        <div class="row" style="padding-top: 80px;">
+        <div class="row" style="padding-top: px;">
             <div class="col-md-2">
 
             </div>
@@ -86,7 +83,10 @@
                                 <td>{{ guest.email }}</td>
                                 <td>{{ guest.sign }}</td>
                                 <td>{{ guest.event }}</td>
-                                <td><span><button type="button" class="btn btn-primary btn-xs" id="showuserinfo">显示</button> <button type="button" class="btn  btn-warning btn-xs">删除</button></span></td>
+                                <td><span>
+								<button type="button" class="btn btn-success btn-xs showuserinfo">显示</button>
+								<button type="button" class="btn btn-warning btn-xs deluserinfo">删除</button>
+								</span></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -172,7 +172,6 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
-
             </div>
         </div>
 </body>

@@ -39,5 +39,7 @@ urlpatterns = [
     url(r'^logout/$', views.logout),
     url(r'^api/', include('api.urls', namespace="api")),
     url(r't1plus/',include('api.urls', namespace="t1")),
+    url(r'^time/plus/(\d{1,2})/$', views.hours_ahead),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #如果单纯的是上传，文件并不用来显示或者读取，就不用加这个
