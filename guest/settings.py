@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sign', 
     'api',
+    'book',
     'bootstrap3',
 
 ]
