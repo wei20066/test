@@ -7,10 +7,10 @@
 <body>
 
 
-<form action="{% url 'index' %}" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
+<form action="/book/upload" enctype="multipart/form-data" method="post">  
     <div>用户名<input type="username" name="username"></div>
     <div>文件  <input type="file" name="file"></div>
+
     <div><input type="submit"></div>
 
 </form>

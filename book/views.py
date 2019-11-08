@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import render,HttpResponse,redirect
 from book.models import Book
-
+from django.http import HttpResponse, HttpResponseRedirect
 def index(request):
+    return render(request,'book/index.html')
+
+
+
+def upload(request):
     if request.method == 'GET':
         return render(request,'book/index.html')
     else:
@@ -13,7 +18,8 @@ def index(request):
             name = username,
             img = file_obj
         )
-        return render(request,'book/index.html')
+    return HttpResponseRedirect('/book/disply/')
+    #return render(request,'book/disply.html')
 
 def disp(request):
     objs =Book.objects.all()
