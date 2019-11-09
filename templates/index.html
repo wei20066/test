@@ -1,9 +1,13 @@
 <html>
     <head>
+	<script src="/static/assets/js/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet" href="/static/assets/css/form-elements.css">
+	<link rel="stylesheet" href="/static/assets/css/style.css">
      {% load bootstrap3 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %} 
 	{% load staticfiles %} 
+	
     <title>Django Page</title> 
     </head>
  <body>
@@ -63,11 +67,46 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-3 social-login">
+					<!--
 						<img src="{% static "images/django.jpg" %}" alt="Picture of app1" />
+						!-->
 					</div>			
 				</div>
 			</div>
 	</div>
+	<script src="/static/assets/js/jquery.backstretch.min.js"></script>
+	<script>	
+jQuery(document).ready(function() {
+	
+    /*
+        Fullscreen background
+    */
+    $.backstretch("{% static "images/1.jpg" %}");
+    
+    /*
+        Form validation
+    */
+    $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {
+    	$(this).removeClass('input-error');
+    });
+    
+    $('.login-form').on('submit', function(e) {
+    	
+    	$(this).find('input[type="text"], input[type="password"], textarea').each(function(){
+    		if( $(this).val() == "" ) {
+    			e.preventDefault();
+    			$(this).addClass('input-error');
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
+    	
+    });
+    
+    
+});
+	</script>
 			
 			<!--[if lt IE 10]>
 				<script src="assets/js/placeholder.js"></script>
