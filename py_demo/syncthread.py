@@ -31,15 +31,17 @@ threads = []
  
 # 创建新线程
 thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
- 
+thread2 = myThread(2, "Thread-2", 1)
+thread3 = myThread(3, "Thread-3", 5) 
 # 开启新线程
 thread1.start()
 thread2.start()
+thread3.start()
  
 # 添加线程到线程列表
 threads.append(thread1)
 threads.append(thread2)
+threads.append(thread3)
  
 # 等待所有线程完成
 for t in threads:

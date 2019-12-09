@@ -9,9 +9,9 @@ class TestThread(Thread):
   """Test Worker Thread Class."""
     
   #---------------------------------------------------------------------- 
-    """Init Worker Thread Class."""
-    Thread.__init__(self) 
-    self.start()  # start the thread 
+  """Init Worker Thread Class."""
+  Thread.__init__(self) 
+  self.start()  # start the thread 
     
   #---------------------------------------------------------------------- 
   def run(self): 
