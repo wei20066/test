@@ -22,8 +22,10 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^index',views.index),
     url(r'^admin/', admin.site.urls),
     url(r'^login_action/$', views.login_action),
+    url(r'^login/$',views.login),
     url(r'^event_manage/$', views.event_manage),
     url(r'^accounts/login/$', views.index), 
     url(r'^search_event_name/$', views.search_event_name),

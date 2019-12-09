@@ -5,8 +5,8 @@ from api import t1plusviews
 urlpatterns = [
     url(r'^portal',t1plusviews.index,name='t1'), 
     # guest system interface:
-    #url(r'^services/hwd/consume/heartBeatApi', views.heartBeatApi, name='heartBeatApi'),
-    #url(r'^services/hwd/consume/accessApi',views_if.xfaccessApi,name='accessApi'),
+    url(r'^services/hwd/consume/heartBeatApi', views_if.heartBeatApi, name='heartBeatApi'),
+    url(r'^services/hwd/y2/heartBeatApi',views_if.heartBeatApi1, name='heartBeatApi1'),
     #url(r'^services/hwd/consume/onlineAccessApi',views_if.xfonlineAccessApi,name='onlineAccessApi'),
     #url(r'^services/hwd/consume/realTimeApi',views_if.xfrealTimeApi,name='realTimeApi'), 
     #url(r'^services/hwd/consume/uploadingApi',views_if.xfuploadingApi,name='uploadingApi'),

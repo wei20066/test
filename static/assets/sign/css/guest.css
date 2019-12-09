@@ -2,10 +2,11 @@
 	width:50%;
 }
 #tb{
+	height:700px;
 	padding:2px;
 	margin:2px;
-	border-radius:5px 5px 5px 5px;
-	border:1px solid;
+	border-radius:5px 0 0 5px;
+	border:0px solid;
 }
  .fileinput-button {
             position: relative;

@@ -7,6 +7,11 @@ import json
 import binascii
 
 # Create your views here.
+def heartBeatApi1(request):
+    postBody=request.body
+    json_result = json.loads(postBody)      
+    return JsonResponse(json_result)
+    
 def heartBeatApi(request):
     postBody=request.body
     json_result = json.loads(postBody)
@@ -14,9 +19,11 @@ def heartBeatApi(request):
        if json_result['content'][18:20]=='00':
             mac=json_result['content'][0:12]
             devtype=json_result['content'][12:14]
-            hexdevnu=json_result['content'][14:18]
-            devnu=json_result['content'][16:18]+json_result['content'][14:16]
+            hexdevnu=json_result['content'][14:20]
+            devnu=json_result['content'][18:20]+json_result['content'][16:18]+json_result['content'][14:16]
             devnu=str(int("0x" +devnu,16))
+            devnum=json_result['content'][14:18]
+            
             print("[设备心跳包]>>>"+json_result['content'])
             print('设备MAC:'+mac+' 设备类型:'+devtype+' 设备号:'+devnu)
             json_result['content']=mac+hexdevnu+time.strftime("%y%m%d%H%M%S")+'01'
@@ -24,11 +31,11 @@ def heartBeatApi(request):
             return JsonResponse(json_result)
     else:
         return JsonResponse({'status':10024,'message':error})
-    #if json_result['access']:
-    #    print(json_result['access'])
-    #if json_result['instruct']:
-    #    print(json_result['instruct'])         
-    #return JsonResponse(json_result)
+    if json_result['access']:
+        print(json_result['access'])
+    if json_result['instruct']:
+        print(json_result['instruct'])         
+    return JsonResponse(json_result)
     
 def onlineAccessApi(request):
     postBody=request.body

@@ -1,0 +1,115 @@
+<html>
+    <head>
+	<script src="/static/assets/js/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet" href="/static/assets/css/form-elements.css">
+	<link rel="stylesheet" href="/static/assets/css/style.css">
+     {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %} 
+	{% load staticfiles %} 
+	
+    <title>Django Page</title> 
+    </head>
+ <body>
+ <!-- 导航栏 --> 
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    	<div class="container">
+    		<div class="navbar-header">
+    			<a class="navbar-brand" href="/event_manage/">Guest Manage System</a> 
+    		</div>
+    		<div id="navbar" class="collapse navbar-collapse">
+    			<ul class="nav navbar-nav">
+    				<li><a href="/index/">首页</a></li>
+    				<li class="active"><a href="#">登录</a></li>
+    			</ul>
+    		</div>
+    	</div>
+    </nav> 
+	<div class="page-header" style="padding-top: 80px;">
+	<!-- Top content -->
+			<div class="top-content">        	
+				<div class="inner-bg">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-2 text">
+								<h1><strong>User Login </strong> </h1>
+								<div class="description">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3 form-box">
+							<div class="form-top">
+								<div class="form-top-left">
+									<h3>Login to our site</h3>
+									<p>Enter your username and password to log on:</p>
+								</div>
+							<div class="form-top-right">
+								<i class="fa fa-key"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<form method="post" action="/login_action/" class="login-form">
+								<div class="form-group">
+									<label class="sr-only" for="username">username</label>
+									<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="password">password</label>
+									<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+								</div>
+								{{ error }}
+								<button type="submit" class="btn">Sign in!</button>
+								{% csrf_token %} 
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 social-login">
+					<!--
+						<img src="{% static "images/django.jpg" %}" alt="Picture of app1" />
+						!-->
+					</div>			
+				</div>
+			</div>
+	</div>
+	<script src="/static/assets/js/jquery.backstretch.min.js"></script>
+	<script>	
+jQuery(document).ready(function() {
+	
+    /*
+        Fullscreen background
+    */
+    $.backstretch("{% static "images/1.jpg" %}");
+    
+    /*
+        Form validation
+    */
+    $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {
+    	$(this).removeClass('input-error');
+    });
+    
+    $('.login-form').on('submit', function(e) {
+    	
+    	$(this).find('input[type="text"], input[type="password"], textarea').each(function(){
+    		if( $(this).val() == "" ) {
+    			e.preventDefault();
+    			$(this).addClass('input-error');
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
+    	
+    });
+    
+    
+});
+	</script>
+			
+			<!--[if lt IE 10]>
+				<script src="assets/js/placeholder.js"></script>
+			<![endif]-->
+ </body>
+ </html>

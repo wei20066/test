@@ -4,6 +4,12 @@ $(document).ready(function(){
   });
   });
   
+  
+  
+function adduser(){
+	
+}
+
 /**  
   $(function(){
  

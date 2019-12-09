@@ -90,7 +90,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '123456',
         'OPTIONS': {'init_command': "SET sql_mode='traditional'",},
-        }
+    }
 }
 
 
